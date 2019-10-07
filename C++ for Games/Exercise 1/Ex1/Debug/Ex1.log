@@ -1,0 +1,23 @@
+﻿  Main.cpp
+c:\users\jordi\source\repos\ex1\ex1\vec3.h(19): warning C4244: '=': conversión de 'double' a 'type'; posible pérdida de datos
+          with
+          [
+              type=int
+          ]
+  c:\users\jordi\source\repos\ex1\ex1\vec3.h(17): note: durante la compilación de la función miembro de plantilla clase de 'void Vec3<int>::Normalize(void)'
+  c:\users\jordi\source\repos\ex1\ex1\main.cpp(11): note: vea la referencia a la creación de instancias de plantilla de función 'void Vec3<int>::Normalize(void)' que se está compilando
+  c:\users\jordi\source\repos\ex1\ex1\main.cpp(7): note: vea la referencia a la creación de instancias de plantilla clase de 'Vec3<int>' que se está compilando
+c:\users\jordi\source\repos\ex1\ex1\vec3.h(20): warning C4244: '=': conversión de 'double' a 'type'; posible pérdida de datos
+          with
+          [
+              type=int
+          ]
+c:\users\jordi\source\repos\ex1\ex1\vec3.h(21): warning C4244: '=': conversión de 'double' a 'type'; posible pérdida de datos
+          with
+          [
+              type=int
+          ]
+c:\users\jordi\source\repos\ex1\ex1\vec3.h(26): warning C4244: 'return': conversión de 'double' a 'float'; posible pérdida de datos
+  c:\users\jordi\source\repos\ex1\ex1\vec3.h(25): note: durante la compilación de la función miembro de plantilla clase de 'float Vec3<int>::distance_to(const Vec3<int> &)'
+  c:\users\jordi\source\repos\ex1\ex1\main.cpp(12): note: vea la referencia a la creación de instancias de plantilla de función 'float Vec3<int>::distance_to(const Vec3<int> &)' que se está compilando
+  Ex1.vcxproj -> C:\Users\jordi\source\repos\Ex1\Debug\Ex1.exe
