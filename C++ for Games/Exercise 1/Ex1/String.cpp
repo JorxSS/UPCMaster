@@ -1,8 +1,5 @@
 #include "String.h"
 
-
-using namespace std;
-
 String::String(const char* src) {
 	assert(src != NULL);
 	nlength = strlen(src) + 1;
@@ -31,6 +28,16 @@ String String::operator+(const String &b)
 	return String(nstr);
 }
 
+String String::operator=(const char* src)
+{
+	assert(src != NULL);
+	nlength = strlen(src) + 1;
+	str = new char[nlength]; //memory leak
+	char* ptr = str;
+	while (*ptr++ = *src++);
+}
+
+
 bool String::operator== (const char* src) {
 
 	assert(src != NULL);
@@ -41,6 +48,6 @@ bool String::operator== (const char* src) {
 }
 
 void String::clear() {
-	str = new char[0];
+	str = new char[0]; // posarla a 0
 	nlength = 0;
 }

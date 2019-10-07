@@ -17,6 +17,7 @@ int main() {
 	String e("mama");
 	String h(d);
 	String f = d + e;
+	//new case String y = "pamplinas"
 	printf(f.str);
 	String m("hola");
 	h.clear();
