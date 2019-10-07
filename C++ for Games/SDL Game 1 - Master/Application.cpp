@@ -34,6 +34,16 @@ bool Application::Init()
 
 	return ret;
 }
+//TODO 3
+bool Application::Start()
+{
+	bool ret = true;
+
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
+		ret = (*it)->Start();
+
+	return ret;
+}
 
 // TODO 4: We need to have three updates, add them: PreUpdate Update PostUpdate
 

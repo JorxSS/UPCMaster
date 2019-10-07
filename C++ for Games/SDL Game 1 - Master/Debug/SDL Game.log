@@ -1,9 +1,9 @@
 ﻿  Application.cpp
+  log.cpp
   Main.cpp
   ModuleInput.cpp
   ModuleRender.cpp
   ModuleTextures.cpp
   ModuleWindow.cpp
-  log.cpp
   Generating Code...
-  SDL Game.vcxproj -> C:\Users\jordiss9\Downloads\001_Handout\SDL Game 1 - Master\Debug\SDL Game - Master 1.exe
+  SDL Game.vcxproj -> C:\Users\jordiss9\Desktop\UPCMasterJSS\UPCMaster\C++ for Games\SDL Game 1 - Master\Debug\SDL Game - Master 1.exe
