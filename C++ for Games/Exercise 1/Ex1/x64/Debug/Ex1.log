@@ -1,2 +1,5 @@
-﻿  Main.cpp
-  Ex1.vcxproj -> C:\Users\jordi\source\repos\Ex1\x64\Debug\Ex1.exe
+﻿  String.cpp
+c:\users\jordiss9\desktop\upcmasterjss\upcmaster\c++ for games\exercise 1\ex1\string.cpp(9): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\jordiss9\desktop\upcmasterjss\upcmaster\c++ for games\exercise 1\ex1\string.cpp(38): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  LINK : C:\Users\jordiss9\Desktop\UPCMasterJSS\UPCMaster\C++ for Games\Exercise 1\x64\Debug\Ex1.exe not found or not built by the last incremental link; performing full link
+  Ex1.vcxproj -> C:\Users\jordiss9\Desktop\UPCMasterJSS\UPCMaster\C++ for Games\Exercise 1\x64\Debug\Ex1.exe

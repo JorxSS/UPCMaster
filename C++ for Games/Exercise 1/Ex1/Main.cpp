@@ -1,6 +1,6 @@
 #include "Vec3.h"
 #include "String.h"
-#include <iostream> 
+
 
 int main() {
 

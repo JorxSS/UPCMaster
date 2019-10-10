@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <assert.h>
+using namespace std;
 
 String::String(const char* src) {
 	assert(src != NULL);
@@ -38,6 +39,7 @@ String String::operator=(const char* src)
 	str = new char[nlength]; //memory leak
 	char* ptr = str;
 	while (*ptr++ = *src++);
+	return String(str);
 }
 
 

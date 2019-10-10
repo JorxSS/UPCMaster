@@ -1,4 +1,4 @@
-
+#include <iostream> 
 template < typename type >
 class Vec3 {
 public:
@@ -6,13 +6,13 @@ public:
 	Vec3(): x(0), y(0), z(0) {}
 	Vec3(type x, type y, type z): x(x),y(y),z(z) {}
 	Vec3(const Vec3 &b): x(b.x), y(b.y), z(b.z) {}
-	void Normalize() const;
+	void Normalize();
 	double distance_to(const Vec3<type> &b);
 	Vec3<type> operator+(Vec3<type> right);
 };
 
 template <typename type>
-void Vec3<type>::Normalize() const {
+void Vec3<type>::Normalize() {
 	double magnitude = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
 	x = x / magnitude;
 	y = y / magnitude;
