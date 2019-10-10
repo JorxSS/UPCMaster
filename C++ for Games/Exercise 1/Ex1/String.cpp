@@ -51,6 +51,6 @@ bool String::operator== (const char* src) {
 }
 
 void String::clear() {
-	str = new char[0]; // posarla a 0
+	str[0] = '\0'; 
 	nlength = 0;
 }
