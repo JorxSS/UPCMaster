@@ -11,13 +11,11 @@ int main() {
 	Vec3<double> r(54, 28, 57);
 	r.Normalize();
 	double dist = r.distance_to(t);
-	cout << dist;
 
 	String d("ou");
 	String e("mama");
 	String h(d);
 	String f = d + e;
-	//new case String y = "pamplinas"
 	printf(f.str);
 	String m("hola");
 	h.clear();

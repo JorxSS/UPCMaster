@@ -1,4 +1,7 @@
 #include "String.h"
+#include <iostream>
+#include <stdio.h>
+#include <assert.h>
 
 String::String(const char* src) {
 	assert(src != NULL);

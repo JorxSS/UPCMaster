@@ -1,6 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <assert.h>
+
 class String {
 	
 public:
