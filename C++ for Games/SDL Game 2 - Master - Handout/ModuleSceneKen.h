@@ -22,6 +22,8 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect ground;
 	SDL_Rect background;
+	SDL_Rect foreground;
+	Animation girl;
 	Animation flag;
 };
 

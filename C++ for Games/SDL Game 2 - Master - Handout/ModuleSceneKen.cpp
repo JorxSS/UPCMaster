@@ -21,6 +21,10 @@ ModuleSceneKen::ModuleSceneKen(bool start_enabled) : Module(start_enabled)
 
 	// TODO 2 : setup the foreground (red ship) with
 	// coordinates x,y,w,h from ken_stage.png
+	foreground.x = 8;
+	foreground.y = 23;
+	foreground.w = 530;
+	foreground.h = 181;
 
 	// Background / sky
 	background.x = 72;
@@ -35,6 +39,12 @@ ModuleSceneKen::ModuleSceneKen(bool start_enabled) : Module(start_enabled)
 	flag.speed = 0.08f;
 
 	// TODO 4: Setup Girl Animation from coordinates from ken_stage.png
+	girl.frames.push_back({625,16,32,56});
+	girl.frames.push_back({625,80,32,56 });
+	girl.frames.push_back({625,144,32,56 });
+	girl.speed = 0.05f;
+
+
 
 }
 
@@ -49,7 +59,10 @@ bool ModuleSceneKen::Start()
 	graphics = App->textures->Load("ken_stage.png");
 
 	// TODO 7: Enable the player module
+	App->player->Enable();
 	// TODO 0: trigger background music
+	App->audio->PlayMusic("ken.ogg");
+
 	
 	return true;
 }
@@ -76,9 +89,9 @@ update_status ModuleSceneKen::Update()
 	App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 1.0f); // flag animation
 
 	// TODO 3: Draw the ship. Be sure to tweak the speed.
-
+	App->renderer->Blit(graphics, 0, 0, &foreground, 2.0f);
 	// TODO 6: Draw the girl. Make sure it follows the ship movement!
-	
+	App->renderer->Blit(graphics, 193, 105, &(girl.GetCurrentFrame()), 2.0f);
 	App->renderer->Blit(graphics, 0, 170, &ground);
 
 	// TODO 10: Build an entire new scene "honda", you can find its
