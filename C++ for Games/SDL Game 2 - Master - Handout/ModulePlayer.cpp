@@ -9,8 +9,8 @@
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
-	position.x = 216;
-	position.y = 100;
+	position.x = 180;
+	position.y = 120;
 
 	// idle animation (arcade sprite sheet)
 	idle.frames.push_back({7, 14, 60, 90});
@@ -72,8 +72,7 @@ update_status ModulePlayer::Update()
 	// make sure to detect player movement and change its
 	// position while cycling the animation(check Animation.h)
 	int speed = 1;
-
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 		position.x -= speed;
 		App->renderer->Blit(graphics, position.x, position.y, &(backward.GetCurrentFrame()));

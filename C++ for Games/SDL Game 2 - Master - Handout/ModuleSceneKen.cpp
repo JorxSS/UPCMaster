@@ -1,12 +1,14 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneKen.h"
+#include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
-#include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleSceneKen.h"
+#include "ModuleSceneHonda.h"
+#include "ModulePlayer.h"
 #include "SDL/include/SDL.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -85,13 +87,13 @@ update_status ModuleSceneKen::Update()
 
 	// Draw everything --------------------------------------
 	// TODO 1: Tweak the movement speed of the sea&sky + flag to your taste
-	App->renderer->Blit(graphics, 0, 0, &background, 1.0f); // sea and sky
-	App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 1.0f); // flag animation
+	App->renderer->Blit(graphics, 0, 0, &background); // sea and sky
+	App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame())); // flag animation
 
 	// TODO 3: Draw the ship. Be sure to tweak the speed.
-	App->renderer->Blit(graphics, 0, 0, &foreground, 2.0f);
+	App->renderer->Blit(graphics, 0, 0, &foreground);
 	// TODO 6: Draw the girl. Make sure it follows the ship movement!
-	App->renderer->Blit(graphics, 193, 105, &(girl.GetCurrentFrame()), 2.0f);
+	App->renderer->Blit(graphics, 193, 105, &(girl.GetCurrentFrame()));
 	App->renderer->Blit(graphics, 0, 170, &ground);
 
 	// TODO 10: Build an entire new scene "honda", you can find its
@@ -99,6 +101,10 @@ update_status ModuleSceneKen::Update()
 
 	// TODO 11: Make that pressing space triggers a switch to honda logic module
 	// using FadeToBlack module
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+		App->fade->FadeToBlack(App->scene_honda, App->scene_ken, 1.0f);
+	}
+
 
 	return UPDATE_CONTINUE;
 }
