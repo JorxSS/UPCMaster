@@ -1,4 +1,3 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
@@ -31,8 +30,6 @@ bool ModuleRender::Init()
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
-
-
 	return true;
 }
 
@@ -52,7 +49,7 @@ update_status ModuleRender::Update()
 
 update_status ModuleRender::PostUpdate()
 {
-	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -62,7 +59,7 @@ bool ModuleRender::CleanUp()
 	LOG("Destroying renderer");
 	SDL_GL_DeleteContext(context);
 	//Destroy window
-
+	
 	return true;
 }
 

@@ -30,9 +30,7 @@ bool ModuleInput::Init()
 update_status ModuleInput::Update()
 {
 	SDL_PumpEvents();
-
 	keyboard = SDL_GetKeyboardState(NULL);
-
 	return UPDATE_CONTINUE;
 }
 

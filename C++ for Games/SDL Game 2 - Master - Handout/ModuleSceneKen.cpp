@@ -84,16 +84,16 @@ bool ModuleSceneKen::CleanUp()
 update_status ModuleSceneKen::Update()
 {
 	// TODO 5: make sure the ship goes up and down
-
+	//MAKE HERE SDL GET TICKS CURRENT TIME
 	// Draw everything --------------------------------------
 	// TODO 1: Tweak the movement speed of the sea&sky + flag to your taste
 	App->renderer->Blit(graphics, 0, 0, &background); // sea and sky
 	App->renderer->Blit(graphics, 560, 8, &(flag.GetCurrentFrame())); // flag animation
 
 	// TODO 3: Draw the ship. Be sure to tweak the speed.
-	App->renderer->Blit(graphics, 0, 0, &foreground);
+	App->renderer->Blit(graphics, 0, 0, &foreground,1.5f);
 	// TODO 6: Draw the girl. Make sure it follows the ship movement!
-	App->renderer->Blit(graphics, 193, 105, &(girl.GetCurrentFrame()));
+	App->renderer->Blit(graphics, 193, 105, &(girl.GetCurrentFrame()),1.5f);
 	App->renderer->Blit(graphics, 0, 170, &ground);
 
 	// TODO 10: Build an entire new scene "honda", you can find its

@@ -30,9 +30,9 @@ bool ModuleTriangle::Init() {
 	frustum.verticalFov = math::pi / 4.0f;
 	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) *(SCREEN_WIDTH/SCREEN_HEIGHT));
 	math::float4x4 proj = frustum.ProjectionMatrix();
-	math::float4x4 model = math::float4x4::FromTRS(math::float3(0.0f, 0.0f, -4.0f),math::float3x3::RotateY(math::pi / 4.0f), math::float3(1.0f,1.0f, 1.0f));
-	math::float4x4 transform = proj * float4x4(model);
+	math::float4x4 model = math::float4x4::FromTRS(math::float3(0.0f, 0.0f, -4.0f),math::float3x3::RotateY(math::pi / 4.0f), math::float3(1.0f,1.0f, 1.0f));	
 	math::float4x4 view = LookAt(math::float3(0.0f, 1.f, 4.0f),math::float3(0.0f, 0.0f, 0.0f), math::float3(0.0f,1.0f, 0.0f));
+	math::float4x4 transform = proj * float4x4(model) * view;
 	
 	float4 FirstPoint = transform * float4(buffer_data[0], buffer_data[1],buffer_data[2], 1);
 	float4 SecondPoint = transform * float4(buffer_data[3], buffer_data[4], buffer_data[5], 1);
