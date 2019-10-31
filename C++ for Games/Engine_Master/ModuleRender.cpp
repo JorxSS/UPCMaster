@@ -24,18 +24,21 @@ bool ModuleRender::Init()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 	context = SDL_GL_CreateContext(App->window->window);
 	GLenum err = glewInit();
-	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
-	LOG("Vendor: %s", glGetString(GL_VENDOR));
-	LOG("Renderer: %s", glGetString(GL_RENDERER));
-	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	LOG("Using Glew %s \n", glewGetString(GLEW_VERSION));
+	LOG("Vendor: %s \n", glGetString(GL_VENDOR));
+	LOG("Renderer: %s \n", glGetString(GL_RENDERER));
+	LOG("OpenGL version supported %s \n", glGetString(GL_VERSION));
+	LOG("GLSL: %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	return true;
 }
 
 update_status ModuleRender::PreUpdate()
 {
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	int width;
+	int height;
+	SDL_GetWindowSize(App->window->window, &width, &height);
+	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	return UPDATE_CONTINUE;
 }
@@ -65,9 +68,8 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
-	/*int w;
-	int h;
-	SDL_GetWindowSize(App->window->window, &w,&h);
-	glViewport(0, 0, width, height);*/
+
+	glViewport(0, 0, width, height);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

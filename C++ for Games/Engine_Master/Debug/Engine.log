@@ -1,4 +1,13 @@
 ﻿  ModuleImGui.cpp
-  ModuleRender.cpp
-  Generando código...
-  Engine.vcxproj -> C:\Users\jordiss9\Desktop\UPCMaster\C++ for Games\Engine_Master\Debug\EngineMaster.exe
+c:\users\jordi\onedrive\documentos\github\upcmaster\c++ for games\engine_master\moduleimgui.cpp(188): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\jordi\onedrive\documentos\github\upcmaster\c++ for games\engine_master\moduleimgui.cpp(196): warning C4244: '=': conversión de 'int' a '_Ty'; posible pérdida de datos
+          with
+          [
+              _Ty=float
+          ]
+c:\users\jordi\onedrive\documentos\github\upcmaster\c++ for games\engine_master\moduleimgui.cpp(200): warning C4244: 'argumento': conversión de 'int' a 'const _Ty'; posible pérdida de datos
+          with
+          [
+              _Ty=float
+          ]
+  Engine.vcxproj -> C:\Users\jordi\OneDrive\Documentos\GitHub\UPCMaster\C++ for Games\Engine_Master\Debug\EngineMaster.exe
