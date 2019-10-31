@@ -18,7 +18,7 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 	void EventManager(SDL_Event);
-	void Draw(const char* title, bool* p_opened = NULL);
+	void ShowConsole(const char* title, bool* p_opened = NULL);
 	void Clear() { logBuffer.clear(); LineOffsets.clear(); }
 public:
 	void Menu();

@@ -46,7 +46,7 @@ bool ModuleImGui::Init()
 
 update_status ModuleImGui::PreUpdate()
 {
-	LOG("IMGUI PREUPDATE \n");
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
@@ -56,16 +56,14 @@ update_status ModuleImGui::PreUpdate()
 
 update_status ModuleImGui::Update()
 {
-	LOG("IMGUI UPDATE \n");
 	//ImGui::ShowDemoWindow();
 	Menu();
-	Draw("Console");
+	ShowConsole("Console");
 	return UPDATE_CONTINUE;;
 }
 
 update_status ModuleImGui::PostUpdate()
 {
-	LOG("IMGUI POSTUPDATE \n");
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	SDL_GL_SwapWindow(App->window->window);
@@ -74,7 +72,6 @@ update_status ModuleImGui::PostUpdate()
 
 bool ModuleImGui::CleanUp()
 {
-	LOG("IMGUI BEING DESTROYED \n");
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
@@ -86,7 +83,7 @@ void ModuleImGui::EventManager(SDL_Event event)
 	ImGui_ImplSDL2_ProcessEvent(&event);
 }
 
-void ModuleImGui::Draw(const char * title, bool * p_opened)
+void ModuleImGui::ShowConsole(const char * title, bool * p_opened)
 {
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
 	ImGui::Begin(title, p_opened);
@@ -132,18 +129,13 @@ void ModuleImGui::Menu()
 	static bool borderless = false;
 	static bool resizable = false;
 	static bool fsdesktop = false;
-	ImGuiWindowFlags window_flags = 0;
-	if (fullscreen)        window_flags |= ImGuiWindowFlags_NoTitleBar;
-	if (borderless)       window_flags |= ImGuiWindowFlags_NoScrollbar;
-	if (resizable)           window_flags |= ImGuiWindowFlags_NoResize;
-	if (fsdesktop)            window_flags |= ImGuiWindowFlags_NoMove;
 
 	static float display_brightness = SDL_GetWindowBrightness(App->window->window);
 	static int screen_w = 0;
 	static int screen_h = 0;
 	SDL_GetWindowSize(App->window->window, &screen_w, &screen_h);
 
-	if (!ImGui::Begin("Jordi Demo Engine 0.1", p_open, window_flags))
+	if (!ImGui::Begin("Jordi Demo Engine 0.1", p_open))
 	{
 		// Early out if the window is collapsed, as an optimization.
 		ImGui::End();
@@ -205,35 +197,34 @@ void ModuleImGui::Menu()
 	}
 	if (ImGui::CollapsingHeader("Window")) {
 
-		if (ImGui::SliderFloat("Brightness", &display_brightness, 0, 1.00f)) {
-
-		}
-		if (ImGui::SliderInt("Width", &screen_w, min_w, max_w)) {
-			App->renderer->WindowResized(screen_w, screen_h);
-		}
-		if (ImGui::SliderInt("Height", &screen_h, min_h, max_h)) {
-			App->renderer->WindowResized(screen_w, screen_h);
-		}
-
-		if (ImGui::Checkbox("Fullscreen", &fullscreen)) App->renderer->WindowResized(max_w,max_h);
+		if (ImGui::SliderFloat("Brightness", &display_brightness, 0, 1.00f))
+			App->window->SetWindowBrightness(display_brightness);
+		if (ImGui::SliderInt("Width", &screen_w, 640, 1024)) 
+			App->window->SetWindowSize(screen_w, screen_h);
+		if (ImGui::SliderInt("Height", &screen_h, 480, 720)) 
+			App->window->SetWindowSize(screen_w, screen_h);
+		if (ImGui::Checkbox("Fullscreen", &fullscreen))
+			App->window->SetFullscreen(fullscreen);
 		ImGui::SameLine();
-		ImGui::Checkbox("Resizable", &resizable);
-
-		ImGui::Checkbox("Borderless", &borderless);
+		if (ImGui::Checkbox("Resizable", &resizable))
+			App->window->SetResizable(resizable);
+		if(ImGui::Checkbox("Borderless", &borderless))
+			App->window->SetBorderless(borderless);
 		ImGui::SameLine();
-		ImGui::Checkbox("Full Desktop", &fsdesktop);
-
+		if (ImGui::Checkbox("Full Desktop", &fsdesktop))
+			App->window->SetFullDesktop(fsdesktop);
+		
 	}
 	if (ImGui::CollapsingHeader("Hardware")) {
-		/*SDL_version compiled;
+		SDL_version compiled;
 		SDL_GetVersion(&compiled);
 		ImGui::Text("SDL VERSION: "); ImGui::SameLine();
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), (char*)compiled);
-		ImGui::Text("GPU: "); ImGui::SameLine();
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), (char*)SDL_GetCPUCount());
-		ImGui::Text("SDL Version: ", SDL_GetVersion );
-		ImGui::Text("CPU: ", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize() );
-		ImGui::Text("System RAM: ", SDL_GetSystemRAM() );*/
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d. %d. %d ", compiled.major, compiled.minor, compiled.patch);
+		ImGui::Text("CPU: "); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d (Cache: %d kb) ",SDL_GetCPUCount(), SDL_GetCPUCacheLineSize() );
+		ImGui::Text("System RAM: " ); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d GB", SDL_GetSystemRAM()/1000);
+		ImGui::Separator();
 		char* vendor =(char*)glGetString(GL_VENDOR);
 		char* card = (char*)glGetString(GL_RENDERER);
 		char* ver = (char*)glGetString(GL_VERSION);
@@ -243,6 +234,22 @@ void ModuleImGui::Menu()
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), vendor);
 		ImGui::Text("Version: "); ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), ver);
+		GLint dedicatedMB = 0;
+		GLint totalMB = 0;
+		GLint currentMB = 0;
+		//TODO STRING COMPARE IF NVIDIA OR AMD
+		glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &dedicatedMB);
+		glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalMB);
+		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &currentMB);
+		ImGui::Text("VRAM:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f MB", (float)dedicatedMB / 1000);
+		ImGui::Text("VRAM Budget:");ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f MB", (float)totalMB / 1000);
+		ImGui::Text("VRAM Usage:");ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f MB", ((float)totalMB / 1000) - ((float)currentMB / 1000));
+		ImGui::Text("VRAM Available:");ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%.1f MB", (float)currentMB / 1000);
+
 
 	}
 	if (ImGui::CollapsingHeader("About..")) {
@@ -257,6 +264,6 @@ void ModuleImGui::Menu()
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), "TO DO");
 
 	}
-
+	//AFTER BLIND PUT VECTOR TO 0... EVERY GL CREATE, WILL NEED TO END AS A GL DELETE IN THE CLEANUP
 	ImGui::End();
 }
