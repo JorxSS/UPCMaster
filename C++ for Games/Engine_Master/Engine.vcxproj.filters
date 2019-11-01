@@ -139,6 +139,7 @@
     <ClCompile Include="Imgui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleShaders.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathGeoLib\include\Geometry\AABB.h">
@@ -369,6 +370,7 @@
     <ClInclude Include="Imgui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleShaders.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MathGeoLib">

@@ -1,8 +1,9 @@
 #include "ModuleTriangle.h"
+#include "ModuleShaders.h"
+#include "Application.h"
 #include "Math/float3.h"
 #include "Math/float4.h"
 #include "Math/float3x3.h"
-#include "Math/float4x4.h"
 #include "Geometry/Frustum.h"
 #include "Math/MathAll.h"
 
@@ -29,12 +30,13 @@ bool ModuleTriangle::Init() {
 	frustum.farPlaneDistance = 100.0f;
 	frustum.verticalFov = math::pi / 4.0f;
 	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) *(SCREEN_WIDTH/SCREEN_HEIGHT));
-	math::float4x4 proj = frustum.ProjectionMatrix();
-	math::float4x4 model = math::float4x4::FromTRS(math::float3(0.0f, 0.0f, -4.0f),math::float3x3::RotateY(math::pi / 4.0f), math::float3(1.0f,1.0f, 1.0f));	
-	math::float4x4 view = LookAt(math::float3(0.0f, 1.f, 4.0f),math::float3(0.0f, 0.0f, 0.0f), math::float3(0.0f,1.0f, 0.0f));
-	math::float4x4 transform = proj * float4x4(model) * view;
+
+	model = math::float4x4::FromTRS(math::float3(0.0f, 0.0f, -4.0f),math::float3x3::RotateY(math::pi / 4.0f), math::float3(1.0f,1.0f, 1.0f));	
+	view = LookAt(math::float3(0.0f, 1.f, 4.0f),math::float3(0.0f, 0.0f, 0.0f), math::float3(0.0f,1.0f, 0.0f));
+	proj = frustum.ProjectionMatrix();
+	//math::float4x4 transform = proj * float4x4(model) * view;
 	
-	float4 FirstPoint = transform * float4(buffer_data[0], buffer_data[1],buffer_data[2], 1);
+/*	float4 FirstPoint = transform * float4(buffer_data[0], buffer_data[1],buffer_data[2], 1);
 	float4 SecondPoint = transform * float4(buffer_data[3], buffer_data[4], buffer_data[5], 1);
 	float4 ThirdPoint = transform * float4(buffer_data[6], buffer_data[7], buffer_data[8], 1);
 
@@ -50,7 +52,7 @@ bool ModuleTriangle::Init() {
 	buffer_data[5] = SecondPoint.z;
 	buffer_data[6] = ThirdPoint.x;
 	buffer_data[7] = ThirdPoint.y;
-	buffer_data[8] = ThirdPoint.z;
+	buffer_data[8] = ThirdPoint.z;*/
 
 
 	glGenBuffers(1, &vbo);
@@ -64,10 +66,22 @@ bool ModuleTriangle::Init() {
 update_status ModuleTriangle::Update()
 {
 
-	glEnableVertexAttribArray(0); // attribute 0
+	/*glEnableVertexAttribArray(0); // attribute 0
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0,3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
 	glDrawArrays(GL_TRIANGLES, 0, 3); // start at 0 and 3 tris
+	glDisableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
+
+	glUseProgram(App->shader->def_program);
+	glUniformMatrix4fv(glGetUniformLocation(App->shader->def_program, "model"), 1, GL_TRUE, &model[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(App->shader->def_program, "view"), 1, GL_TRUE, &view[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(App->shader->def_program, "proj"), 1, GL_TRUE, &proj[0][0]);
+
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 

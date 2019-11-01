@@ -9,7 +9,7 @@ class ModuleWindow;
 class ModuleTextures;
 class ModuleTriangle;
 class ModuleInput;
-class ModuleRenderExercise;
+class ModuleShaders;
 class ModuleImGui;
 
 class Application
@@ -28,6 +28,7 @@ public:
 	ModuleWindow* window = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTriangle* triangle = nullptr;
+	ModuleShaders* shader = nullptr;
 	ModuleImGui* imgui = nullptr;
 	
 

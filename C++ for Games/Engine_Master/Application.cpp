@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTriangle.h"
+#include "ModuleShaders.h"
 #include "ModuleImGui.h"
 
 using namespace std;
@@ -14,6 +15,7 @@ Application::Application()
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(triangle = new ModuleTriangle());
+	modules.push_back(shader = new ModuleShaders());
 	modules.push_back(imgui = new ModuleImGui());
 	modules.push_back(input = new ModuleInput());
 }

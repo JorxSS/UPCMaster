@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "Math/float3x4.h"
+#include "MathGeoLib.h"
 
 class ModuleTriangle :public Module
 {
@@ -14,6 +14,9 @@ public:
 
 private:
 	GLuint	vbo;
+	math::float4x4 model;
+	math::float4x4 view;
+	math::float4x4 proj;
 
 };
 
