@@ -1,6 +1,6 @@
 #include "ModuleShaders.h"
 #include <glew.h>
-#include "Globals.h"
+
 
 
 ModuleShaders::ModuleShaders()
@@ -45,8 +45,8 @@ bool ModuleShaders::Init()
 		fclose(file);
 	}
 	*/
-	readShader(vertexShader, "default.vs");
-	readShader(fragmentShader, "default.fs");
+	readShader(vertexShader, "shaders/vsdefault.txt");
+	readShader(fragmentShader, "shaders/fsdefault.txt");
 
 	unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex, 1, &vertexShader, nullptr);
@@ -91,7 +91,7 @@ void ModuleShaders::readShader(char* shader, const char* path) {
 
 	FILE *file = nullptr;
 
-	fopen_s(&file, path, "r");
+	fopen_s(&file, path, "rb");
 	if (file) {
 		fseek(file, 0, SEEK_END);
 		int size = ftell(file);
