@@ -21,6 +21,10 @@ Application* App = NULL;
 
 int main(int argc, char ** argv)
 {
+
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	LOG(buffer);
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
 

@@ -1,5 +1,8 @@
 #include "ModuleShaders.h"
 #include <glew.h>
+#include <string>
+#include <iostream>
+
 
 
 
@@ -45,8 +48,8 @@ bool ModuleShaders::Init()
 		fclose(file);
 	}
 	*/
-	readShader(vertexShader, "shaders/vsdefault.txt");
-	readShader(fragmentShader, "shaders/fsdefault.txt");
+	readShader(vertexShader, "default.vs");
+	readShader(fragmentShader, "default.fs");
 
 	unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex, 1, &vertexShader, nullptr);
@@ -63,6 +66,7 @@ bool ModuleShaders::Init()
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 	return true;
+
 }
 
 update_status ModuleShaders::PreUpdate()
